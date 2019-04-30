@@ -3,29 +3,28 @@ import './components/searchInput/searchInput.js';
 import './components/sortableHeader/sortableHeader.js';
 
 class App {
-    sortBy = null;
-    sortDirection = null;
-    search = null;
-    columns = [
-        {
-            key: 'mass',
-            value: 'Mass'
-        },
-        {
-            key: 'name',
-            value: 'Name'
-        },
-        {
-            key: 'class',
-            value: 'Class'
-        },
-        {
-            key: 'year',
-            value: 'Year'
-        }
-    ];
-
     constructor() {
+        this.sortBy = null;
+        this.sortDirection = null;
+        this.search = null;
+        this.columns = [
+            {
+                key: 'mass',
+                value: 'Mass'
+            },
+            {
+                key: 'name',
+                value: 'Name'
+            },
+            {
+                key: 'class',
+                value: 'Class'
+            },
+            {
+                key: 'year',
+                value: 'Year'
+            }
+        ];
         this.sortableTableElement = document.querySelector('sortable-table');
         this.searchInputElement = document.querySelector('search-input')
 
