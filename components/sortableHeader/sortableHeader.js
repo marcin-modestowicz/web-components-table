@@ -8,6 +8,7 @@ template.innerHTML = `
             font-weight: bold;
             background: none;
             border: none;
+            cursor: pointer;
         }
 
         .arrow {
