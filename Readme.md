@@ -2,7 +2,7 @@
 
 Simple data table built from web components.
 
-# Some missing features
+## Some missing features
 
   - Package bundling with Webpack
   - Auto formatting with Prettier
@@ -10,7 +10,7 @@ Simple data table built from web components.
   - Tests (!)
   - Styles
 
-# Installation
+## Installation
 
 ```sh
 $ git clone https://github.com/marcin-modestowicz/web-components-table.git
