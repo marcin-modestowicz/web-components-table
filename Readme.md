@@ -10,7 +10,7 @@ Simple data table built from web components.
   - Tests (!)
   - Styles
 
-### Installation
+# Installation
 
 ```sh
 $ git clone https://github.com/marcin-modestowicz/web-components-table.git
