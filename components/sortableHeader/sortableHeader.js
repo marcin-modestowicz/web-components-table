@@ -19,12 +19,16 @@ template.innerHTML = `
             width: 0;
             opacity: 0;
             transition: transform 0.8s, opacity 0.5s;
-            transform: translateY(2.5px);
+            transform: rotate(90deg) translateY(2.5px);
         }
 
         .asc .arrow,
         .desc .arrow {
             opacity: 1;
+        }
+
+        .desc .arrow {
+            transform: rotate(0deg) translateY(2.5px);
         }
 
         .asc .arrow {
@@ -77,7 +81,14 @@ class SortableHeader extends HTMLElement {
         }
 
         this.dispatchEvent(
-            new CustomEvent('onChange', { key: this.key, direction: this.direction })
+            new CustomEvent(
+                'headerSortChange',
+                {
+                    detail: {
+                        direction: this.direction,
+                        key: this.key
+                    },
+            })
         );
     }
 

@@ -1,10 +1,9 @@
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
-        :host {
-            display: block;
-            font-family: sans-serif;
-            text-align: center;
+        input {
+            font-size: 1rem;
+            padding: .2rem;
         }
     </style>
     <input placeholder="Search"></input>
@@ -22,7 +21,7 @@ class SearchInput extends HTMLElement {
         this.inputElement
             .addEventListener('input', event => {
                 this.value = event.target.value;
-                this.dispatchEvent(new CustomEvent('onChange', { detail: this.value }));
+                this.dispatchEvent(new CustomEvent('searchValueChange', { detail: this.value }));
             });
     }
 

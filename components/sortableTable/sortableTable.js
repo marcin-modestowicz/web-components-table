@@ -4,24 +4,22 @@ template.innerHTML = `
         :host {
             display: block;
             font-family: sans-serif;
-            text-align: center;
+        }
+
+        th,
+        td {
+            padding: .5rem;
         }
     </style>
     <table>
         <thead>
-            <tr>
-                <th>Mass</th>
-                <th>Description</th>
-                <th>Classification</th>
-                <th>Date</th>
-            </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
 `;
 
-class List extends HTMLElement {
+class SortableTable extends HTMLElement {
     constructor() {
         super();
         this._shadowRoot = this.attachShadow({ 'mode': 'open' });
@@ -41,19 +39,35 @@ class List extends HTMLElement {
             const rowFragment = document.createDocumentFragment();
             rowFragment.appendChild(document.createElement('tr'));
 
-            Object.keys(item).forEach(key => {
-                const isInColumns = this._columns.find(column => column.key === key);
+            this.columns.forEach(({ key }) => {
+                const cellElement = document.createElement('td');
 
-                if (isInColumns) {
-                    const cellElement = document.createElement('td');
-
-                    cellElement.textContent = item[key];
-                    rowFragment.childNodes[0].appendChild(cellElement);
-                }
+                cellElement.textContent = item[key] || '';
+                rowFragment.childNodes[0].appendChild(cellElement);
             });
 
             this.listElement.appendChild(rowFragment);
         });
+    }
+
+    _handleHeaderChange(key, value) {
+        this.sortableHeaderElements.forEach(element => {
+            if (element.key !== key) {
+                element.direction = null;
+            }
+        });
+
+        this.dispatchEvent(
+            new CustomEvent(
+                'tableSortChange',
+                {
+                    detail: {
+                        direction: value,
+                        key,
+                    },
+                }
+            )
+        );
     }
 
     _renderHeader() {
@@ -64,8 +78,16 @@ class List extends HTMLElement {
 
         this._columns.forEach(column => {
             const cellElement = document.createElement('th');
-            cellElement.textContent = column.value;
+            const headerElement = document.createElement('sortable-header');
 
+            headerElement.setAttribute('key', column.key);
+            headerElement.textContent = column.value;
+            headerElement.addEventListener(
+                'headerSortChange',
+                ({ detail: { key, direction } }) => this._handleHeaderChange(key, direction)
+            );
+
+            cellElement.appendChild(headerElement);
             rowFragment.childNodes[0].appendChild(cellElement);
         });
 
@@ -83,12 +105,16 @@ class List extends HTMLElement {
 
     set columns(value) {
         this._columns = value;
-        this._renderList();
+        this._renderHeader();
     }
 
     get columns() {
         return this._columns;
     }
+
+    get sortableHeaderElements() {
+        return this.columns.map(({ key }) => this.headerElement.querySelector(`[key="${key}"]`))
+    }
 }
 
-window.customElements.define('sortable-list', List);
+window.customElements.define('sortable-table', SortableTable);
