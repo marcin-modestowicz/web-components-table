@@ -1,0 +1,23 @@
+{
+  "name": "web-components-table",
+  "version": "1.0.0",
+  "description": "Simple data table built from web components",
+  "main": "app.js",
+  "scripts": {
+    "start": "./node_modules/.bin/serve ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcin-modestowicz/web-components-table.git"
+  },
+  "author": "Marcin Modestowicz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcin-modestowicz/web-components-table/issues"
+  },
+  "homepage": "https://github.com/marcin-modestowicz/web-components-table#readme",
+  "devDependencies": {
+    "serve": "^11.0.0"
+  }
+}
